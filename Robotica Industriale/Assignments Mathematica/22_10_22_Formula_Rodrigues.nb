@@ -1,0 +1,109 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      3587,        101]
+NotebookOptionsPosition[      3236,         87]
+NotebookOutlinePosition[      3634,        103]
+CellTagsIndexPosition[      3591,        100]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"RODRIGUES", " ", 
+    RowBox[{"DIRETTO", ":", " ", 
+     RowBox[{"dato", " ", "un", " ", "angolo", " ", "e", " ", "un", " ", 
+      RowBox[{"vettore", "/", "versore"}], " ", "ricavare", " ", "la", " ", 
+      "matrice", " ", "di", " ", "Rotazione"}]}]}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"RodriguesDiretto", "[", 
+    RowBox[{"\[Theta]_", ",", "v_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"vers", ",", "S"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"vers", "=", 
+       RowBox[{"v", "/", 
+        RowBox[{"Norm", "[", "v", "]"}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"S", "=", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0", ",", 
+           RowBox[{"-", 
+            RowBox[{"vers", "[", 
+             RowBox[{"[", "3", "]"}], "]"}]}], ",", 
+           RowBox[{"vers", "[", 
+            RowBox[{"[", "2", "]"}], "]"}]}], "}"}], ",", 
+         "\[IndentingNewLine]", "     ", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"vers", "[", 
+            RowBox[{"[", "3", "]"}], "]"}], ",", "0", ",", 
+           RowBox[{"-", 
+            RowBox[{"vers", "[", 
+             RowBox[{"[", "1", "]"}], "]"}]}]}], "}"}], ",", 
+         "\[IndentingNewLine]", "     ", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", 
+            RowBox[{"vers", "[", 
+             RowBox[{"[", "2", "]"}], "]"}]}], ",", 
+           RowBox[{"vers", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], ",", "0"}], "}"}]}], 
+        "\[IndentingNewLine]", "   ", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"MatrixForm", "[", 
+       RowBox[{
+        RowBox[{"IdentityMatrix", "[", "3", "]"}], "+", 
+        RowBox[{"S", "*", 
+         RowBox[{"Sin", "[", "\[Theta]", "]"}]}], "+", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"S", ".", "S"}], ")"}], "*", 
+         RowBox[{"(", 
+          RowBox[{"1", "-", 
+           RowBox[{"Cos", "[", "\[Theta]", "]"}]}], ")"}]}]}], "]"}]}]}], 
+    "\[IndentingNewLine]", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.875755730431058*^9, 3.875755817385787*^9}, {
+  3.8757558480239077`*^9, 3.875755944900934*^9}, {3.8875170440243473`*^9, 
+  3.887517051694435*^9}, {3.8875171672376814`*^9, 3.8875171674416475`*^9}, {
+  3.887517208668847*^9, 3.887517217278581*^9}, {3.887523795424677*^9, 
+  3.8875238137242975`*^9}, {3.8878855191872997`*^9, 3.8878855249407196`*^9}, {
+  3.887962488358534*^9, 3.8879625045996656`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"64abfbb1-2e60-4816-abe6-eaaafeafba85"]
+},
+WindowSize->{638, 677},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"13.1 for Microsoft Windows (64-bit) (August 22, 2022)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"87477a94-9a1a-434a-ac57-36e479be1327"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 2674, 65, 238, "Input",ExpressionUUID->"64abfbb1-2e60-4816-abe6-eaaafeafba85"]
+}
+]
+*)
+

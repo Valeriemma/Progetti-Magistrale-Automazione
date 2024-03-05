@@ -1,0 +1,1060 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     42182,       1052]
+NotebookOptionsPosition[     40887,       1025]
+NotebookOutlinePosition[     41294,       1041]
+CellTagsIndexPosition[     41251,       1038]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"PROCEDURA", " ", "PER", " ", "IL", " ", "CALCOLO", " ", 
+     RowBox[{"DELL", "'"}], "INERZIA", " ", 
+     RowBox[{"DI", ":", " ", "PARALLELEPIPEDO"}]}], ",", 
+    RowBox[{
+    "CILINDRO", " ", "E", " ", "SFERA", " ", "ANCHE", " ", "NEI", " ", "CASI",
+      " ", "DI", " ", "BUCATO", " ", "E", " ", "CON", " ", "TAPPI"}]}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Spessore", " ", "dei", " ", 
+    RowBox[{"tappi", ":", " ", 
+     RowBox[{
+      RowBox[{"l", "'"}], "altezza", " ", "del", " ", 
+      RowBox[{"solido", " ", "/", " ", "10"}]}]}]}], " ", "*)"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Parametri", " ", 
+    RowBox[{"funzione", ":"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "profondit\[AGrave]", ",", " ", "larghezza", ",", " ", "altezza", ",", " ",
+     "raggio", ",", " ", 
+    RowBox[{"altezza", " ", "cilindro"}], ",", " ", "massa", ",", " ", 
+    RowBox[{"profondit\[AGrave]", " ", "buco"}], ",", " ", 
+    RowBox[{"larghezza", " ", "buco"}], ",", " ", 
+    RowBox[{"raggio", " ", "buco"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Inerzia", "[", 
+    RowBox[{
+    "a_", ",", "b_", ",", "c_", ",", "r_", ",", "h_", ",", "M_", ",", "bx_", 
+     ",", "by_", ",", "br_"}], "]"}], " ", ":=", " ", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "x", ",", "y", ",", "z", ",", "MI", ",", "\[Rho]", ",", "\[Alpha]", ",",
+        "\[Beta]", ",", " ", "error1", ",", "error2", ",", "parallelepipedo", 
+       ",", "cilindro", ",", "sfera", ",", "parallelepipedoB", ",", 
+       "cilindroB", ",", "sferaB", ",", "parallelepipedoT", ",", 
+       "cilindroT"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"error1", "::", "char"}], " ", "=", " ", 
+       "\"\<La variabile dovrebbe essere uno scalare:\>\""}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"error2", "::", "char"}], " ", "=", " ", 
+       "\"\<Il foro non pu\[OGrave] essere pi\[UGrave] grande del solido \
+stesso.\>\""}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Dimensions", "[", 
+          RowBox[{"a", ",", 
+           RowBox[{"AllowedHeads", "\[Rule]", "List"}]}], "]"}], "!=", 
+         RowBox[{"{", "}"}]}], ",", 
+        RowBox[{"Message", "[", 
+         RowBox[{
+          RowBox[{"error1", "::", "char"}], ",", " ", "a"}], "]"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Dimensions", "[", 
+            RowBox[{"b", ",", 
+             RowBox[{"AllowedHeads", "\[Rule]", "List"}]}], "]"}], "!=", 
+           RowBox[{"{", "}"}]}], ",", 
+          RowBox[{"Message", "[", 
+           RowBox[{
+            RowBox[{"error1", "::", "char"}], ",", " ", "b"}], "]"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Dimensions", "[", 
+              RowBox[{"c", ",", 
+               RowBox[{"AllowedHeads", "\[Rule]", "List"}]}], "]"}], "!=", 
+             RowBox[{"{", "}"}]}], ",", 
+            RowBox[{"Message", "[", 
+             RowBox[{
+              RowBox[{"error1", "::", "char"}], ",", " ", "c"}], "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"Dimensions", "[", 
+                RowBox[{"r", ",", 
+                 RowBox[{"AllowedHeads", "\[Rule]", "List"}]}], "]"}], "!=", 
+               RowBox[{"{", "}"}]}], ",", 
+              RowBox[{"Message", "[", 
+               RowBox[{
+                RowBox[{"error1", "::", "char"}], ",", " ", "r"}], "]"}], ",",
+               "\[IndentingNewLine]", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"Dimensions", "[", 
+                  RowBox[{"h", ",", 
+                   RowBox[{"AllowedHeads", "\[Rule]", "List"}]}], "]"}], "!=", 
+                 RowBox[{"{", "}"}]}], ",", 
+                RowBox[{"Message", "[", 
+                 RowBox[{
+                  RowBox[{"error1", "::", "char"}], ",", " ", "h"}], "]"}], 
+                ",", "\[IndentingNewLine]", 
+                RowBox[{"If", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Dimensions", "[", 
+                    RowBox[{"M", ",", 
+                    RowBox[{"AllowedHeads", "\[Rule]", "List"}]}], "]"}], "!=", 
+                   RowBox[{"{", "}"}]}], ",", 
+                  RowBox[{"Message", "[", 
+                   RowBox[{
+                    RowBox[{"error1", "::", "char"}], ",", " ", "M"}], "]"}], 
+                  ",", "\[IndentingNewLine]", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"Dimensions", "[", 
+                    RowBox[{"bx", ",", 
+                    RowBox[{"AllowedHeads", "\[Rule]", "List"}]}], "]"}], "!=", 
+                    RowBox[{"{", "}"}]}], ",", 
+                    RowBox[{"Message", "[", 
+                    RowBox[{
+                    RowBox[{"error1", "::", "char"}], ",", " ", "by"}], "]"}],
+                     ",", "\[IndentingNewLine]", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Dimensions", "[", 
+                    RowBox[{"by", ",", 
+                    RowBox[{"AllowedHeads", "\[Rule]", "List"}]}], "]"}], "!=", 
+                    RowBox[{"{", "}"}]}], ",", 
+                    RowBox[{"Message", "[", 
+                    RowBox[{
+                    RowBox[{"error1", "::", "char"}], ",", " ", "bx"}], "]"}],
+                     ",", "\[IndentingNewLine]", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Dimensions", "[", 
+                    RowBox[{"br", ",", 
+                    RowBox[{"AllowedHeads", "\[Rule]", "List"}]}], "]"}], "!=", 
+                    RowBox[{"{", "}"}]}], ",", 
+                    RowBox[{"Message", "[", 
+                    RowBox[{
+                    RowBox[{"error1", "::", "char"}], ",", " ", "br"}], "]"}],
+                     ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"MI", " ", "=", " ", 
+                    RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"y", "^", "2"}], "+", 
+                    RowBox[{"z", "^", "2"}]}], ",", " ", 
+                    RowBox[{
+                    RowBox[{"-", "x"}], "*", "y"}], ",", " ", 
+                    RowBox[{
+                    RowBox[{"-", "x"}], "*", "z"}]}], "}"}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"-", "x"}], "*", "y"}], ",", 
+                    RowBox[{
+                    RowBox[{"x", "^", "2"}], "+", 
+                    RowBox[{"z", "^", "2"}]}], ",", 
+                    RowBox[{
+                    RowBox[{"-", "y"}], "*", "z"}]}], "}"}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"-", "x"}], "*", "z"}], ",", 
+                    RowBox[{
+                    RowBox[{"-", "y"}], "*", "z"}], ",", 
+                    RowBox[{
+                    RowBox[{"x", "^", "2"}], "+", 
+                    RowBox[{"y", "^", "2"}]}]}], "}"}]}], 
+                    "\[IndentingNewLine]", "}"}]}], ";", 
+                    "\[IndentingNewLine]", "\[IndentingNewLine]", 
+                    RowBox[{"parallelepipedo", " ", "=", " ", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"M", "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", "*", "b", "*", "c"}], ")"}]}], ")"}], "*", 
+                    RowBox[{"Integrate", "[", 
+                    RowBox[{"MI", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"z", ",", 
+                    RowBox[{
+                    RowBox[{"-", "c"}], "/", "2"}], ",", 
+                    RowBox[{"c", "/", "2"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"y", ",", 
+                    RowBox[{
+                    RowBox[{"-", "b"}], "/", "2"}], ",", 
+                    RowBox[{"b", "/", "2"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"x", ",", 
+                    RowBox[{
+                    RowBox[{"-", "a"}], "/", "2"}], ",", 
+                    RowBox[{"a", "/", "2"}]}], "}"}]}], "]"}]}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{
+                    "\"\<L'inerzia del parallelepipedo \[EGrave]: \>\"", 
+                    RowBox[{"MatrixForm", "[", "parallelepipedo", "]"}]}], 
+                    "]"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+                    RowBox[{"parallelepipedoB", " ", "=", " ", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"M", "/", 
+                    RowBox[{"(", 
+                    RowBox[{"bx", "*", "by", "*", "c"}], ")"}]}], ")"}], "*", 
+                    RowBox[{"Integrate", "[", 
+                    RowBox[{"MI", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"z", ",", 
+                    RowBox[{
+                    RowBox[{"-", "c"}], "/", "2"}], ",", 
+                    RowBox[{"c", "/", "2"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"y", ",", 
+                    RowBox[{
+                    RowBox[{"-", "by"}], "/", "2"}], ",", 
+                    RowBox[{"by", "/", "2"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"x", ",", 
+                    RowBox[{
+                    RowBox[{"-", "bx"}], "/", "2"}], ",", 
+                    RowBox[{"bx", "/", "2"}]}], "}"}]}], "]"}]}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{
+                    "\"\<L'inerzia del parallelepipedo bucato \[EGrave]: \
+\>\"", 
+                    RowBox[{"MatrixForm", "[", 
+                    RowBox[{"parallelepipedo", "-", "parallelepipedoB"}], 
+                    "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"parallelepipedoT", " ", "=", " ", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"M", "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", "*", "b", "*", 
+                    RowBox[{"(", 
+                    RowBox[{"c", "+", 
+                    RowBox[{"c", "/", "5"}]}], ")"}]}], ")"}]}], ")"}], "*", 
+                    RowBox[{"Integrate", "[", 
+                    RowBox[{"MI", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"z", ",", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"-", "c"}], "/", "2"}], "-", 
+                    RowBox[{"c", "/", "10"}]}], ",", 
+                    RowBox[{
+                    RowBox[{"c", "/", "2"}], "+", 
+                    RowBox[{"c", "/", "10"}]}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"y", ",", 
+                    RowBox[{
+                    RowBox[{"-", "b"}], "/", "2"}], ",", 
+                    RowBox[{"b", "/", "2"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"x", ",", 
+                    RowBox[{
+                    RowBox[{"-", "a"}], "/", "2"}], ",", 
+                    RowBox[{"a", "/", "2"}]}], "}"}]}], "]"}]}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{
+                    "\"\<L'inerzia del parallelepipedo con tappi \[EGrave]: \
+\>\"", 
+                    RowBox[{"MatrixForm", "[", 
+                    RowBox[{"parallelepipedoT", "-", "parallelepipedoB"}], 
+                    "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"x", " ", "=", " ", 
+                    RowBox[{"\[Rho]", "*", 
+                    RowBox[{"Cos", "[", "\[Alpha]", "]"}]}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"y", " ", "=", " ", 
+                    RowBox[{"\[Rho]", "*", 
+                    RowBox[{"Sin", "[", "\[Alpha]", "]"}]}]}], ";", 
+                    "\[IndentingNewLine]", "\[IndentingNewLine]", 
+                    RowBox[{"cilindro", " ", "=", " ", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"M", "/", 
+                    RowBox[{"(", 
+                    RowBox[{"Pi", "*", 
+                    RowBox[{"r", "^", "2"}], "*", "h"}], ")"}]}], ")"}], "*", 
+                    RowBox[{"Integrate", "[", 
+                    RowBox[{
+                    RowBox[{"\[Rho]", "*", "MI"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"z", ",", 
+                    RowBox[{
+                    RowBox[{"-", "h"}], "/", "2"}], ",", 
+                    RowBox[{"h", "/", "2"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"\[Alpha]", ",", "0", ",", 
+                    RowBox[{"2", "*", "Pi"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"\[Rho]", ",", "0", ",", "r"}], "}"}]}], 
+                    "]"}]}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"\<L'inerzia del cilindro \[EGrave]: \>\"", 
+                    RowBox[{"MatrixForm", "[", "cilindro", "]"}]}], "]"}], 
+                    ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+                    RowBox[{"cilindroB", " ", "=", " ", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"M", "/", 
+                    RowBox[{"(", 
+                    RowBox[{"Pi", "*", 
+                    RowBox[{"br", "^", "2"}], "*", "h"}], ")"}]}], ")"}], "*", 
+                    RowBox[{"Integrate", "[", 
+                    RowBox[{
+                    RowBox[{"\[Rho]", "*", "MI"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"z", ",", 
+                    RowBox[{
+                    RowBox[{"-", "h"}], "/", "2"}], ",", 
+                    RowBox[{"h", "/", "2"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"\[Alpha]", ",", "0", ",", 
+                    RowBox[{"2", "*", "Pi"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"\[Rho]", ",", "0", ",", "br"}], "}"}]}], 
+                    "]"}]}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{
+                    "\"\<L'inerzia del cilindro bucato \[EGrave]: \>\"", ",", 
+                    RowBox[{"MatrixForm", "[", 
+                    RowBox[{"cilindro", "-", "cilindroB"}], "]"}]}], "]"}], 
+                    ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+                    RowBox[{"cilindroT", " ", "=", " ", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"M", "/", 
+                    RowBox[{"(", 
+                    RowBox[{"Pi", "*", 
+                    RowBox[{"r", "^", "2"}], "*", 
+                    RowBox[{"(", 
+                    RowBox[{"h", "+", 
+                    RowBox[{"h", "/", "5"}]}], ")"}]}], ")"}]}], ")"}], "*", 
+                    RowBox[{"Integrate", "[", 
+                    RowBox[{
+                    RowBox[{"\[Rho]", "*", "MI"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"z", ",", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"-", "h"}], "/", "2"}], "-", 
+                    RowBox[{"h", "/", "10"}]}], ",", 
+                    RowBox[{
+                    RowBox[{"h", "/", "2"}], "+", 
+                    RowBox[{"h", "/", "10"}]}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"\[Alpha]", ",", "0", ",", 
+                    RowBox[{"2", "*", "Pi"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"\[Rho]", ",", "0", ",", "r"}], "}"}]}], 
+                    "]"}]}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{
+                    "\"\<L'inerzia del cilindro con tappi \[EGrave]: \>\"", 
+                    ",", 
+                    RowBox[{"MatrixForm", "[", 
+                    RowBox[{"cilindroT", "-", "cilindroB"}], "]"}]}], "]"}], 
+                    ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+                    RowBox[{"x", " ", "=", " ", 
+                    RowBox[{"\[Rho]", "*", 
+                    RowBox[{"Sin", "[", "\[Alpha]", "]"}], "*", 
+                    RowBox[{"Cos", "[", "\[Beta]", "]"}]}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"y", " ", "=", " ", 
+                    RowBox[{"\[Rho]", "*", 
+                    RowBox[{"Sin", "[", "\[Alpha]", "]"}], "*", 
+                    RowBox[{"Sin", "[", "\[Beta]", "]"}]}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"z", " ", "=", " ", 
+                    RowBox[{"\[Rho]", "*", 
+                    RowBox[{"Cos", "[", "\[Alpha]", "]"}]}]}], ";", 
+                    "\[IndentingNewLine]", "\[IndentingNewLine]", 
+                    RowBox[{"sfera", " ", "=", " ", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"M", "/", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"4", "/", "3"}], "*", "Pi", "*", 
+                    RowBox[{"r", "^", "3"}]}], ")"}]}], ")"}], "*", 
+                    RowBox[{"Integrate", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"\[Rho]", "^", "2"}], "*", 
+                    RowBox[{"Sin", "[", "\[Alpha]", "]"}], "*", "MI"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"\[Alpha]", ",", "0", ",", "Pi"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"\[Beta]", ",", "0", ",", 
+                    RowBox[{"2", "*", "Pi"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"\[Rho]", ",", "0", ",", "r"}], "}"}]}], 
+                    "]"}]}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{"\"\<L'inerzia della sfera \[EGrave]: \>\"", 
+                    RowBox[{"MatrixForm", "[", "sfera", "]"}]}], "]"}], ";", 
+                    "\[IndentingNewLine]", "\[IndentingNewLine]", 
+                    RowBox[{"sferaB", " ", "=", " ", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"M", "/", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"4", "/", "3"}], "*", "Pi", "*", 
+                    RowBox[{"br", "^", "3"}]}], ")"}]}], ")"}], "*", 
+                    RowBox[{"Integrate", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"\[Rho]", "^", "2"}], "*", 
+                    RowBox[{"Sin", "[", "\[Alpha]", "]"}], "*", "MI"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"\[Alpha]", ",", "0", ",", "Pi"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"\[Beta]", ",", "0", ",", 
+                    RowBox[{"2", "*", "Pi"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"\[Rho]", ",", "0", ",", "br"}], "}"}]}], 
+                    "]"}]}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"Print", "[", 
+                    RowBox[{
+                    "\"\<L'inerzia della sfera bucata \[EGrave]: \>\"", 
+                    RowBox[{"MatrixForm", "[", 
+                    RowBox[{"sfera", "-", "sferaB"}], "]"}]}], "]"}], ";"}]}],
+                     "\[IndentingNewLine]", "\[IndentingNewLine]", "]"}]}], 
+                    "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+                   "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+               "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}],
+            "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+       "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJwlz1tMkgEABeAfljbbcLlaonPO3DJaVuIlWvqCkretNd2UOaGVoQjemkOK
+JNM09cGHSkknEy8xpYZmVA4DqVmh2I3pFpWsLC+sZEMYE0tWcf4ezr6d83b2
+l9Tkl1IJgkgJBJojzxbedDjZVJWfB/XjaVVQ0+6qhtfqj8tgSCa7HSYypArI
+3RSpYB6XOwQvfTYPw9b1tvsweO78JCyzPjHB32b1c6ikCWbgFtViJ3spfQVy
+YjwuqDrE3IaLy/1htwJ+5fMS4QPXegpk2Y+cgTc+NRRDa3fSBRi9VimA0/N/
+a2DFYFcD9JbntECJ3dYBx2jNPZCvayEtyhZPQK1fa4T6UKkFPpaHvYemoogf
+cOmtiVS18MUFYybebcD4pLxfsCzDRbmNPZdVAA1C1X81qXw4PRdcAt2OE0I4
+WvZIBC/7PlTBypXiOigXypvgwS23AkY7M3thwsZHNWRo/Ro4U2F+CBV/dhtg
+1IFEG0zW/fwOZ9vzl+FqVKEP7hpvDOoMmCVW02C0QxkKh8wJe2C2voP0DlMU
+DvflTtMhkd7BgCZmz2Fomd9OgkdltmTY1U/hQPvVhSwopRzjwlXnXgGc9a1W
+wZF4ZjWUMOqvwLXYkGbIeV3XBp1xRiXUT/UNkvuLnLuwlkrcg0ueqXGYaiyY
+gOKnrEl4kUM1wWCr9xlMH+O9hJ444xt4/WRkxOJm4N8rWQxM7wtNgBnegTSo
+Gx3IgUTTCBc2BclFkFFxuhr2hhtqode9sxF+20FvheckflJNeXen2Odkx55y
+k/4D7gP3Gg==
+  "],ExpressionUUID->"1003fc5a-5e61-44be-a65b-d630b69034b1"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Inerzia", "[", 
+   RowBox[{
+   "a", ",", "b", ",", "c", ",", "r", ",", "h", ",", "M", ",", "ba", ",", 
+    "bb", ",", "br"}], "]"}], "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.8795048893712387`*^9, 3.879504903435047*^9}, {
+   3.879505031885888*^9, 3.8795050492213364`*^9}, {3.879505108351981*^9, 
+   3.879505166168887*^9}, 3.879507656186799*^9, {3.879507745924266*^9, 
+   3.879507809036515*^9}, {3.879508173447199*^9, 3.879508194188712*^9}, {
+   3.879508616149791*^9, 3.879508617202901*^9}, {3.8795087980980763`*^9, 
+   3.879508802778955*^9}, {3.8795088898125124`*^9, 3.879508889857087*^9}, {
+   3.887520840916342*^9, 3.8875208531792965`*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"27c257fc-c859-4ce8-8c55-c7ad8fed0886"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\<\"L'inerzia del parallelepipedo \[EGrave]: \"\>", " ", 
+  TagBox[
+   RowBox[{"(", "\[NoBreak]", GridBox[{
+      {
+       FractionBox[
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            FractionBox["1", "12"], " ", "a", " ", 
+            SuperscriptBox["b", "3"], " ", "c"}], "+", 
+           RowBox[{
+            FractionBox["1", "12"], " ", "a", " ", "b", " ", 
+            SuperscriptBox["c", "3"]}]}], ")"}], " ", "M"}], 
+        RowBox[{"a", " ", "b", " ", "c"}]], "0", "0"},
+      {"0", 
+       FractionBox[
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            FractionBox["1", "12"], " ", 
+            SuperscriptBox["a", "3"], " ", "b", " ", "c"}], "+", 
+           RowBox[{
+            FractionBox["1", "12"], " ", "a", " ", "b", " ", 
+            SuperscriptBox["c", "3"]}]}], ")"}], " ", "M"}], 
+        RowBox[{"a", " ", "b", " ", "c"}]], "0"},
+      {"0", "0", 
+       FractionBox[
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           FractionBox[
+            RowBox[{
+             SuperscriptBox["a", "3"], " ", "b"}], "12"], "+", 
+           FractionBox[
+            RowBox[{"a", " ", 
+             SuperscriptBox["b", "3"]}], "12"]}], ")"}], " ", "M"}], 
+        RowBox[{"a", " ", "b"}]]}
+     },
+     GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.7]}, 
+         Offset[0.27999999999999997`]}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}}], "\[NoBreak]", ")"}],
+   Function[BoxForm`e$, 
+    MatrixForm[BoxForm`e$]]]}]], "Print",
+ CellChangeTimes->{3.887520860164195*^9},
+ CellLabel->
+  "During evaluation of \
+In[3]:=",ExpressionUUID->"89f6155b-9c6f-4632-93d8-687b3b3d4ab1"],
+
+Cell[BoxData[
+ RowBox[{"\<\"L'inerzia del parallelepipedo bucato \[EGrave]: \"\>", " ", 
+  TagBox[
+   RowBox[{"(", "\[NoBreak]", GridBox[{
+      {
+       RowBox[{
+        FractionBox[
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             FractionBox["1", "12"], " ", "a", " ", 
+             SuperscriptBox["b", "3"], " ", "c"}], "+", 
+            RowBox[{
+             FractionBox["1", "12"], " ", "a", " ", "b", " ", 
+             SuperscriptBox["c", "3"]}]}], ")"}], " ", "M"}], 
+         RowBox[{"a", " ", "b", " ", "c"}]], "-", 
+        FractionBox[
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             FractionBox["1", "12"], " ", "ba", " ", 
+             SuperscriptBox["bb", "3"], " ", "c"}], "+", 
+            RowBox[{
+             FractionBox["1", "12"], " ", "ba", " ", "bb", " ", 
+             SuperscriptBox["c", "3"]}]}], ")"}], " ", "M"}], 
+         RowBox[{"ba", " ", "bb", " ", "c"}]]}], "0", "0"},
+      {"0", 
+       RowBox[{
+        FractionBox[
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             FractionBox["1", "12"], " ", 
+             SuperscriptBox["a", "3"], " ", "b", " ", "c"}], "+", 
+            RowBox[{
+             FractionBox["1", "12"], " ", "a", " ", "b", " ", 
+             SuperscriptBox["c", "3"]}]}], ")"}], " ", "M"}], 
+         RowBox[{"a", " ", "b", " ", "c"}]], "-", 
+        FractionBox[
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             FractionBox["1", "12"], " ", 
+             SuperscriptBox["ba", "3"], " ", "bb", " ", "c"}], "+", 
+            RowBox[{
+             FractionBox["1", "12"], " ", "ba", " ", "bb", " ", 
+             SuperscriptBox["c", "3"]}]}], ")"}], " ", "M"}], 
+         RowBox[{"ba", " ", "bb", " ", "c"}]]}], "0"},
+      {"0", "0", 
+       RowBox[{
+        FractionBox[
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            FractionBox[
+             RowBox[{
+              SuperscriptBox["a", "3"], " ", "b"}], "12"], "+", 
+            FractionBox[
+             RowBox[{"a", " ", 
+              SuperscriptBox["b", "3"]}], "12"]}], ")"}], " ", "M"}], 
+         RowBox[{"a", " ", "b"}]], "-", 
+        FractionBox[
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            FractionBox[
+             RowBox[{
+              SuperscriptBox["ba", "3"], " ", "bb"}], "12"], "+", 
+            FractionBox[
+             RowBox[{"ba", " ", 
+              SuperscriptBox["bb", "3"]}], "12"]}], ")"}], " ", "M"}], 
+         RowBox[{"ba", " ", "bb"}]]}]}
+     },
+     GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.7]}, 
+         Offset[0.27999999999999997`]}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}}], "\[NoBreak]", ")"}],
+   Function[BoxForm`e$, 
+    MatrixForm[BoxForm`e$]]]}]], "Print",
+ CellChangeTimes->{3.887520860169195*^9},
+ CellLabel->
+  "During evaluation of \
+In[3]:=",ExpressionUUID->"9fcd8f93-429f-47fd-90eb-50f044f73de4"],
+
+Cell[BoxData[
+ RowBox[{"\<\"L'inerzia del parallelepipedo con tappi \[EGrave]: \"\>", " ", 
+  TagBox[
+   RowBox[{"(", "\[NoBreak]", GridBox[{
+      {
+       RowBox[{
+        FractionBox[
+         RowBox[{"5", " ", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             FractionBox["1", "10"], " ", "a", " ", 
+             SuperscriptBox["b", "3"], " ", "c"}], "+", 
+            RowBox[{
+             FractionBox["18", "125"], " ", "a", " ", "b", " ", 
+             SuperscriptBox["c", "3"]}]}], ")"}], " ", "M"}], 
+         RowBox[{"6", " ", "a", " ", "b", " ", "c"}]], "-", 
+        FractionBox[
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             FractionBox["1", "12"], " ", "ba", " ", 
+             SuperscriptBox["bb", "3"], " ", "c"}], "+", 
+            RowBox[{
+             FractionBox["1", "12"], " ", "ba", " ", "bb", " ", 
+             SuperscriptBox["c", "3"]}]}], ")"}], " ", "M"}], 
+         RowBox[{"ba", " ", "bb", " ", "c"}]]}], "0", "0"},
+      {"0", 
+       RowBox[{
+        FractionBox[
+         RowBox[{"5", " ", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             FractionBox["1", "10"], " ", 
+             SuperscriptBox["a", "3"], " ", "b", " ", "c"}], "+", 
+            RowBox[{
+             FractionBox["18", "125"], " ", "a", " ", "b", " ", 
+             SuperscriptBox["c", "3"]}]}], ")"}], " ", "M"}], 
+         RowBox[{"6", " ", "a", " ", "b", " ", "c"}]], "-", 
+        FractionBox[
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             FractionBox["1", "12"], " ", 
+             SuperscriptBox["ba", "3"], " ", "bb", " ", "c"}], "+", 
+            RowBox[{
+             FractionBox["1", "12"], " ", "ba", " ", "bb", " ", 
+             SuperscriptBox["c", "3"]}]}], ")"}], " ", "M"}], 
+         RowBox[{"ba", " ", "bb", " ", "c"}]]}], "0"},
+      {"0", "0", 
+       RowBox[{
+        FractionBox[
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            FractionBox[
+             RowBox[{
+              SuperscriptBox["a", "3"], " ", "b"}], "12"], "+", 
+            FractionBox[
+             RowBox[{"a", " ", 
+              SuperscriptBox["b", "3"]}], "12"]}], ")"}], " ", "M"}], 
+         RowBox[{"a", " ", "b"}]], "-", 
+        FractionBox[
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            FractionBox[
+             RowBox[{
+              SuperscriptBox["ba", "3"], " ", "bb"}], "12"], "+", 
+            FractionBox[
+             RowBox[{"ba", " ", 
+              SuperscriptBox["bb", "3"]}], "12"]}], ")"}], " ", "M"}], 
+         RowBox[{"ba", " ", "bb"}]]}]}
+     },
+     GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.7]}, 
+         Offset[0.27999999999999997`]}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}}], "\[NoBreak]", ")"}],
+   Function[BoxForm`e$, 
+    MatrixForm[BoxForm`e$]]]}]], "Print",
+ CellChangeTimes->{3.8875208601747055`*^9},
+ CellLabel->
+  "During evaluation of \
+In[3]:=",ExpressionUUID->"32606f65-98ee-4808-9722-f40724c34765"],
+
+Cell[BoxData[
+ RowBox[{"\<\"L'inerzia del cilindro \[EGrave]: \"\>", " ", 
+  TagBox[
+   RowBox[{"(", "\[NoBreak]", GridBox[{
+      {
+       RowBox[{
+        FractionBox["1", "12"], " ", "M", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          SuperscriptBox["h", "2"], "+", 
+          RowBox[{"3", " ", 
+           SuperscriptBox["r", "2"]}]}], ")"}]}], "0", "0"},
+      {"0", 
+       RowBox[{
+        FractionBox["1", "12"], " ", "M", " ", 
+        RowBox[{"(", 
+         RowBox[{
+          SuperscriptBox["h", "2"], "+", 
+          RowBox[{"3", " ", 
+           SuperscriptBox["r", "2"]}]}], ")"}]}], "0"},
+      {"0", "0", 
+       FractionBox[
+        RowBox[{"M", " ", 
+         SuperscriptBox["r", "2"]}], "2"]}
+     },
+     GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.7]}, 
+         Offset[0.27999999999999997`]}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}}], "\[NoBreak]", ")"}],
+   Function[BoxForm`e$, 
+    MatrixForm[BoxForm`e$]]]}]], "Print",
+ CellChangeTimes->{3.8875208624258795`*^9},
+ CellLabel->
+  "During evaluation of \
+In[3]:=",ExpressionUUID->"1f12b825-2b76-441f-8433-c2cd5ed0431e"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"L'inerzia del cilindro bucato \[EGrave]: \"\>", 
+   "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", GridBox[{
+       {
+        RowBox[{
+         RowBox[{
+          RowBox[{"-", 
+           FractionBox["1", "12"]}], " ", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"3", " ", 
+             SuperscriptBox["br", "2"]}], "+", 
+            SuperscriptBox["h", "2"]}], ")"}], " ", "M"}], "+", 
+         RowBox[{
+          FractionBox["1", "12"], " ", "M", " ", 
+          RowBox[{"(", 
+           RowBox[{
+            SuperscriptBox["h", "2"], "+", 
+            RowBox[{"3", " ", 
+             SuperscriptBox["r", "2"]}]}], ")"}]}]}], "0", "0"},
+       {"0", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"-", 
+           FractionBox["1", "12"]}], " ", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"3", " ", 
+             SuperscriptBox["br", "2"]}], "+", 
+            SuperscriptBox["h", "2"]}], ")"}], " ", "M"}], "+", 
+         RowBox[{
+          FractionBox["1", "12"], " ", "M", " ", 
+          RowBox[{"(", 
+           RowBox[{
+            SuperscriptBox["h", "2"], "+", 
+            RowBox[{"3", " ", 
+             SuperscriptBox["r", "2"]}]}], ")"}]}]}], "0"},
+       {"0", "0", 
+        RowBox[{
+         RowBox[{"-", 
+          FractionBox[
+           RowBox[{
+            SuperscriptBox["br", "2"], " ", "M"}], "2"]}], "+", 
+         FractionBox[
+          RowBox[{"M", " ", 
+           SuperscriptBox["r", "2"]}], "2"]}]}
+      },
+      GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}}], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["L'inerzia del cilindro bucato \[EGrave]: ", 
+   MatrixForm[{{
+     Rational[-1, 12] (3 $CellContext`br^2 + $CellContext`h^2) $CellContext`M + 
+      Rational[1, 12] $CellContext`M ($CellContext`h^2 + 3 $CellContext`r^2), 
+      0, 0}, {0, 
+      Rational[-1, 12] (
+        3 $CellContext`br^2 + $CellContext`h^2) $CellContext`M + 
+      Rational[1, 12] $CellContext`M ($CellContext`h^2 + 3 $CellContext`r^2), 
+      0}, {0, 0, Rational[-1, 2] $CellContext`br^2 $CellContext`M + 
+      Rational[1, 2] $CellContext`M $CellContext`r^2}}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.8875208638155837`*^9},
+ CellLabel->
+  "During evaluation of \
+In[3]:=",ExpressionUUID->"048f632b-8367-46f2-9ed9-d5f576181069"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"L'inerzia del cilindro con tappi \[EGrave]: \"\>", 
+   "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", GridBox[{
+       {
+        RowBox[{
+         RowBox[{
+          RowBox[{"-", 
+           FractionBox["1", "12"]}], " ", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"3", " ", 
+             SuperscriptBox["br", "2"]}], "+", 
+            SuperscriptBox["h", "2"]}], ")"}], " ", "M"}], "+", 
+         RowBox[{
+          FractionBox["1", "100"], " ", "M", " ", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"12", " ", 
+             SuperscriptBox["h", "2"]}], "+", 
+            RowBox[{"25", " ", 
+             SuperscriptBox["r", "2"]}]}], ")"}]}]}], "0", "0"},
+       {"0", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"-", 
+           FractionBox["1", "12"]}], " ", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"3", " ", 
+             SuperscriptBox["br", "2"]}], "+", 
+            SuperscriptBox["h", "2"]}], ")"}], " ", "M"}], "+", 
+         RowBox[{
+          FractionBox["1", "100"], " ", "M", " ", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"12", " ", 
+             SuperscriptBox["h", "2"]}], "+", 
+            RowBox[{"25", " ", 
+             SuperscriptBox["r", "2"]}]}], ")"}]}]}], "0"},
+       {"0", "0", 
+        RowBox[{
+         RowBox[{"-", 
+          FractionBox[
+           RowBox[{
+            SuperscriptBox["br", "2"], " ", "M"}], "2"]}], "+", 
+         FractionBox[
+          RowBox[{"M", " ", 
+           SuperscriptBox["r", "2"]}], "2"]}]}
+      },
+      GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}}], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["L'inerzia del cilindro con tappi \[EGrave]: ", 
+   MatrixForm[{{
+     Rational[-1, 12] (3 $CellContext`br^2 + $CellContext`h^2) $CellContext`M + 
+      Rational[1, 100] $CellContext`M (12 $CellContext`h^2 + 
+        25 $CellContext`r^2), 0, 0}, {
+     0, Rational[-1, 12] (
+        3 $CellContext`br^2 + $CellContext`h^2) $CellContext`M + 
+      Rational[1, 100] $CellContext`M (12 $CellContext`h^2 + 
+        25 $CellContext`r^2), 0}, {
+     0, 0, Rational[-1, 2] $CellContext`br^2 $CellContext`M + 
+      Rational[1, 2] $CellContext`M $CellContext`r^2}}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.887520865383741*^9},
+ CellLabel->
+  "During evaluation of \
+In[3]:=",ExpressionUUID->"0d276669-e7e6-4f85-ba51-ada22c15dafa"],
+
+Cell[BoxData[
+ RowBox[{"\<\"L'inerzia della sfera \[EGrave]: \"\>", " ", 
+  TagBox[
+   RowBox[{"(", "\[NoBreak]", GridBox[{
+      {
+       FractionBox[
+        RowBox[{"2", " ", "M", " ", 
+         SuperscriptBox["r", "2"]}], "5"], "0", "0"},
+      {"0", 
+       FractionBox[
+        RowBox[{"2", " ", "M", " ", 
+         SuperscriptBox["r", "2"]}], "5"], "0"},
+      {"0", "0", 
+       FractionBox[
+        RowBox[{"2", " ", "M", " ", 
+         SuperscriptBox["r", "2"]}], "5"]}
+     },
+     GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.7]}, 
+         Offset[0.27999999999999997`]}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}}], "\[NoBreak]", ")"}],
+   Function[BoxForm`e$, 
+    MatrixForm[BoxForm`e$]]]}]], "Print",
+ CellChangeTimes->{3.8875208667356973`*^9},
+ CellLabel->
+  "During evaluation of \
+In[3]:=",ExpressionUUID->"fecc8fa8-ba3d-4ae7-b374-8b76f26b2d85"],
+
+Cell[BoxData[
+ RowBox[{"\<\"L'inerzia della sfera bucata \[EGrave]: \"\>", " ", 
+  TagBox[
+   RowBox[{"(", "\[NoBreak]", GridBox[{
+      {
+       RowBox[{
+        RowBox[{"-", 
+         FractionBox[
+          RowBox[{"2", " ", 
+           SuperscriptBox["br", "2"], " ", "M"}], "5"]}], "+", 
+        FractionBox[
+         RowBox[{"2", " ", "M", " ", 
+          SuperscriptBox["r", "2"]}], "5"]}], "0", "0"},
+      {"0", 
+       RowBox[{
+        RowBox[{"-", 
+         FractionBox[
+          RowBox[{"2", " ", 
+           SuperscriptBox["br", "2"], " ", "M"}], "5"]}], "+", 
+        FractionBox[
+         RowBox[{"2", " ", "M", " ", 
+          SuperscriptBox["r", "2"]}], "5"]}], "0"},
+      {"0", "0", 
+       RowBox[{
+        RowBox[{"-", 
+         FractionBox[
+          RowBox[{"2", " ", 
+           SuperscriptBox["br", "2"], " ", "M"}], "5"]}], "+", 
+        FractionBox[
+         RowBox[{"2", " ", "M", " ", 
+          SuperscriptBox["r", "2"]}], "5"]}]}
+     },
+     GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.7]}, 
+         Offset[0.27999999999999997`]}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}}], "\[NoBreak]", ")"}],
+   Function[BoxForm`e$, 
+    MatrixForm[BoxForm`e$]]]}]], "Print",
+ CellChangeTimes->{3.887520867950077*^9},
+ CellLabel->
+  "During evaluation of \
+In[3]:=",ExpressionUUID->"1a8f8586-b115-4946-8842-e23b43662410"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1440., 777.75},
+WindowMargins->{{Automatic, -2}, {Automatic, -6}},
+FrontEndVersion->"12.2 for Microsoft Windows (64-bit) (December 12, 2020)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"2ed6a6e2-5732-46fc-bf35-7e2299283490"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 21957, 468, 1247, "Input",ExpressionUUID->"1003fc5a-5e61-44be-a65b-d630b69034b1"],
+Cell[CellGroupData[{
+Cell[22540, 492, 770, 13, 47, "Input",ExpressionUUID->"27c257fc-c859-4ce8-8c55-c7ad8fed0886"],
+Cell[CellGroupData[{
+Cell[23335, 509, 1870, 54, 120, "Print",ExpressionUUID->"89f6155b-9c6f-4632-93d8-687b3b3d4ab1"],
+Cell[25208, 565, 3170, 90, 120, "Print",ExpressionUUID->"9fcd8f93-429f-47fd-90eb-50f044f73de4"],
+Cell[28381, 657, 3219, 90, 120, "Print",ExpressionUUID->"32606f65-98ee-4808-9722-f40724c34765"],
+Cell[31603, 749, 1268, 38, 83, "Print",ExpressionUUID->"1f12b825-2b76-441f-8433-c2cd5ed0431e"],
+Cell[32874, 789, 2673, 74, 83, "Print",ExpressionUUID->"048f632b-8367-46f2-9ed9-d5f576181069"],
+Cell[35550, 865, 2770, 77, 83, "Print",ExpressionUUID->"0d276669-e7e6-4f85-ba51-ada22c15dafa"],
+Cell[38323, 944, 1027, 30, 91, "Print",ExpressionUUID->"fecc8fa8-ba3d-4ae7-b374-8b76f26b2d85"],
+Cell[39353, 976, 1506, 45, 91, "Print",ExpressionUUID->"1a8f8586-b115-4946-8842-e23b43662410"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
