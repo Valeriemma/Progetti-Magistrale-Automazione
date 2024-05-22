@@ -1,3 +1,4 @@
 # Progetti-Magistrale-Automazione
-Qui sono archiviati tutti i progetti realizzati per ogni esame della magistrale di Ingegneria dell'Automazione dell'Università degli Studi di Roma Tor Vergata.
-N.B! I progetti qui archiviati non sono tutti. Sono stati esclusi tutti quei progetti che pesano troppo per GitHub (es. progetti su SOLIDWORKS, o altri rete neurale dove era necessario caricare dataset molto grandi come può essere il MNIST, progetto su STM32 etc,etc...)
+In questa repository sono archiviati tutti i progetti realizzati per ciascun esame del corso di laurea magistrale in Ingegneria dell'Automazione presso l'Università degli Studi di Roma Tor Vergata.
+
+Nota Bene: Non tutti i progetti sono presenti in questa raccolta. Sono stati esclusi quei progetti il cui peso eccede i limiti imposti da GitHub. Esempi di tali progetti includono quelli sviluppati con SOLIDWORKS, progetti che richiedono il caricamento di dataset di grandi dimensioni come il dataset MNIST, progetti su STM32, e altri simili.
